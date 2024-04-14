@@ -126,6 +126,7 @@ class WajibPajakController extends Controller
                 'luas_bumi' => 'required|numeric',
                 'luas_bangunan' => 'required|numeric',
                 'pagu_pajak' => 'required|numeric',
+                'status' => 'required|numeric',
                 'id_user' => 'required|numeric',
             ]);
 
@@ -144,6 +145,7 @@ class WajibPajakController extends Controller
                     'objek_pajak' => $validatedData['objek_pajak'],
                     'luas_bumi' => $validatedData['luas_bumi'],
                     'luas_bangunan' => $validatedData['luas_bangunan'],
+                    'status' => $validatedData['status'],
                     'pagu_pajak' => $validatedData['pagu_pajak'],
                 ]);
 

@@ -69,16 +69,14 @@ class User extends Authenticatable
             ->leftJoin(DB::raw('(SELECT master_penarik.id_user,
                             SUM(wajib_pajak.pagu_pajak) as total_baku,
                             COUNT(wajib_pajak.id) as total_sppt
-                        FROM master_penarik ' . $condition . '
-                        JOIN wajib_pajak ON wajib_pajak.no_sppt = master_penarik.no_sppt
+                        FROM master_penarik  JOIN wajib_pajak ON wajib_pajak.no_sppt = master_penarik.no_sppt ' . $condition . '
                         GROUP BY id_user) as wajib_pajak_baku'), 'users.id', '=', 'wajib_pajak_baku.id_user')
 
 
             ->leftJoin(DB::raw('(SELECT master_penarik.id_user,
                                     SUM(CASE WHEN status = 1 THEN wajib_pajak.pagu_pajak ELSE 0 END) as total_setoran,
                                     COUNT(CASE WHEN status = 1 THEN wajib_pajak.id ELSE NULL END) as total_sppt_setoran
-                                FROM master_penarik  ' . $condition . '
-                                JOIN wajib_pajak ON wajib_pajak.no_sppt = master_penarik.no_sppt
+                                FROM master_penarik  JOIN wajib_pajak ON wajib_pajak.no_sppt = master_penarik.no_sppt ' . $condition . '
                                 GROUP BY id_user) as wajib_pajak_setoran'), 'users.id', '=', 'wajib_pajak_setoran.id_user')
 
 

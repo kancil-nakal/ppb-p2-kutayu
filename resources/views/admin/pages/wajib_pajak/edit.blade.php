@@ -62,13 +62,13 @@
                                 <div class="d-flex align-items-center gap-3">
                                     <input type="number" class="form-control @error('rt')
                                         border-danger
-                                    @enderror" min="001" max="999" step="1" name="rt" id="rt" value="{{ old('rt', $wajibpajak->rt) }}" class="form-control" autocomplete="off">
+                                    @enderror" min="000" max="999" step="1" name="rt" id="rt" value="{{ old('rt', $wajibpajak->rt) }}" class="form-control" autocomplete="off">
                                     @error('rt')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                     <input type="number" class="form-control @error('rw')
                                         border-danger
-                                    @enderror" min="001" max="999" step="1" name="rw" id="rw" value="{{ old('rw', $wajibpajak->rw) }}" class="form-control" autocomplete="off">
+                                    @enderror" min="000" max="999" step="1" name="rw" id="rw" value="{{ old('rw', $wajibpajak->rw) }}" class="form-control" autocomplete="off">
                                     @error('rw')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -134,6 +134,19 @@
                                     @foreach ($data['users'] as $key => $value )
                                         <option value="{{ $value->id }}" {{ old('id_user', $wajibpajak->id_user ) == $value->id ? 'selected' : '' }}>{{ $value->name }}</option>
                                     @endforeach
+                                </select>
+                                @error('id_user')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label for="status" class="form-label">Keterangan</label>
+                                <select class="form-select @error('status')
+                                    border-danger
+                                    @enderror"  name="status" id="status">
+
+                                    <option value="0" {{ old('status', $wajibpajak->status ) == 0 ? 'selected' : '' }}>Belum Lunas</option>
+                                    <option value="1" {{ old('status', $wajibpajak->status ) == 1 ? 'selected' : '' }}>Lunas</option>
                                 </select>
                                 @error('id_user')
                                     <small class="text-danger">{{ $message }}</small>

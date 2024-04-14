@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="row g-3" action="{{ route('setoran.store') }}" method="POST">
+                    <form  class="row g-3" action="{{ route('setoran.store') }}" method="POST" >
                         @csrf
                         <div class="col-12 mt-5">
                             <div class="row">
@@ -168,6 +168,7 @@
                     <thead class="bg-light" >
                         <tr>
                             <th scope="col">No</th>
+                            <th scope="col">ID</th>
                             <th scope="col">SPPT</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Tahun</th>
@@ -180,12 +181,13 @@
 
                             <tr>
                                 <td scope="row">{{ $loop->iteration }}</td>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->no_sppt }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->tahun }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-info text-white btn_pilih"  type="button" data-id="{{ $item->id }}" data-nama="{{ $item->nama }}" data-sppt="{{ $item->no_sppt }}" data-jumlah_setoran="Rp. {{ number_format($item->pagu_pajak, 0, ',', '.') }}" data-pagu_pajak="{{ $item->pagu_pajak }}" data-penarik="{{ $item->name }}" data-tahun={{ $item->tahun }} data-bs-dismiss="modal"><i class="bi bi-check2-square me-1"></i>pilih</button>
+                                    <button class="btn btn-sm btn-info text-white btn_pilih"  type="button" data-id_wp="{{ $item->id }}" data-nama="{{ $item->nama }}" data-sppt="{{ $item->no_sppt }}" data-jumlah_setoran="Rp. {{ number_format($item->pagu_pajak, 0, ',', '.') }}" data-pagu_pajak="{{ $item->pagu_pajak }}" data-penarik="{{ $item->name }}" data-tahun={{ $item->tahun }} data-bs-dismiss="modal"><i class="bi bi-check2-square me-1"></i>pilih</button>
                                 </td>
 
                             </tr>
@@ -211,7 +213,7 @@
 <script type="text/javascript">
 
     $(document).on('click', '.btn_pilih', function(event) {
-        var id = $(this).data('id');
+        var id = $(this).data('id_wp');
         var nama = $(this).data('nama');
         var sppt = $(this).data('sppt');
         var tahun = $(this).data('tahun');
@@ -258,8 +260,6 @@
             getDataSPPT();
         })
 
-
-
         function getDataSPPT(){
             var no_sppt = $('#input_no_sppt').val();
             var tahun = $('#input_tahun').val();
@@ -305,6 +305,24 @@
             value = new Intl.NumberFormat('id-ID').format(value);
             $(this).val(value);
         });
+
+        // $('#form-setoran').submit(function(event) {
+        //     event.preventDefault();
+
+        //     var formData = $(this).serialize();
+
+        //     $.ajax({
+        //         url: $(this).attr('action'),
+        //         type: 'POST',
+        //         data: formData,
+        //         success: function(response) {
+        //             console.log(response);
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error(xhr.responseText);
+        //         }
+        //     });
+        // });
     })
 </script>
 @endpush

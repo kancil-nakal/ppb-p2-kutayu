@@ -12,13 +12,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class RekapController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $tahun = $request->get('tahun');
 
         $users = new User;
         $data = [
             'title' => 'Rekap',
-            'penarik' => $users->getRekapSetoran(['tahun' =>'']),
-            'tahun' => WajibPajak::select('tahun')->groupBy('tahun')->orderBy('tahun', 'desc')->get()
+            'penarik' => $users->getRekapSetoran(['tahun' =>$tahun]),
+            'tahun' => WajibPajak::select('tahun')->groupBy('tahun')->orderBy('tahun', 'desc')->get(),
+            'value_tahun' => $tahun
         ];
 
         // dd($data);

@@ -13,9 +13,9 @@ class SetoranController extends Controller
         $tahun = WajibPajak::select('tahun')->groupBy('tahun')->orderBy('tahun', 'desc')->get();
         // $setoran = Setoran::where('setoran.status', 1)->join('wajib_pajak', 'setoran.id_wp', '=', 'wajib_pajak.id')->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->orderBy('setoran.created_at', 'desc')->get();
 
-        $setoran = WajibPajak::where('status', 1)->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->orderBy('wajib_pajak.updated_at', 'desc')->get();
+        $setoran = WajibPajak::select('wajib_pajak.*','users.name as penarik')->where('status', 1)->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->orderBy('wajib_pajak.updated_at', 'desc')->get();
 
-        $wajibpajak = WajibPajak::where('status', 0)->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->orderBy('tahun', 'desc')->get();
+        $wajibpajak = WajibPajak::select('wajib_pajak.*','users.name as penarik')->where('status', 0)->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->orderBy('tahun', 'desc')->get();
 
         $data = [
             'title' => 'Setoran',
@@ -32,7 +32,7 @@ class SetoranController extends Controller
         $tahun = $request->input('tahun');
 
         $wajibpajak = WajibPajak::select('wajib_pajak.*','users.name as penarik')
-                        ->where('no_sppt', $no_sppt)->where('tahun', $tahun)->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->first();
+                        ->where('wajib_pajak.no_sppt', $no_sppt)->where('tahun', $tahun)->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->first();
 
         if(isset($wajibpajak) ) {
             $wajibpajak->jumlah_setoran =  'Rp. ' . number_format($wajibpajak->pagu_pajak, 0, ',', '.');
@@ -52,6 +52,7 @@ class SetoranController extends Controller
                 'id_wp' => 'required',
                 'tgl_setoran' => 'required',
             ]);
+            // dd($validatedData);
 
             WajibPajak::where('id', $validatedData['id_wp'])->update([
                 'status' => 1,

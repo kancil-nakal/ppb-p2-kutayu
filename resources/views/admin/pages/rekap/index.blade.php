@@ -27,22 +27,23 @@
                         <a href="{{ route('rekap.export') }}" class="btn btn-success"><i class="bi bi-file-earmark-excel me-1"></i> Export</a>
                     </div>
                     <div class="col-lg-6">
-                        <div class="d-flex justify-content-end gap-2">
+                        <form  class="d-flex justify-content-end gap-2" action="" method="get">
                             <div class="col-4 ">
-                                <select class="form-select "  name="role" id="role">
+                                <select class="form-select "  name="tahun" id="tahun">
                                     <option value="" >--Pilih Tahun--</option>
                                     @foreach ($data['tahun'] as $key => $item )
-                                        <option value="{{ $item->tahun }}">{{ $item->tahun }}</option>
+                                        <option value="{{ $item->tahun }}" {{ $data['value_tahun'] == $item->tahun ? 'selected' : '' }}>{{ $item->tahun }}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <button type="submit" class="col-2 btn btn-info">Cari</button>
                             {{-- <div class="col-7">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Cari No SPPT / Nama">
                                     <button class="input-group-text btn btn-info text-white" id="basic-addon2"><i class="bi bi-search "></i></button>
                                 </div>
                             </div> --}}
-                        </div>
+                        </form>
                     </div>
                 </div>
                 @if (session('success'))
@@ -50,9 +51,9 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <div class="table-responsive mt-5">
+                <div class="table-responsive mt-4">
 
-                    <table class=" table table-borderless table-striped display nowrap mt-2" id="tablerekap">
+                    <table class=" table table-borderless table-striped display nowrap " id="t_rekap">
                         <thead>
                             <tr>
                                 <th rowspan="2" class="text-center align-middle">#</th>
@@ -71,17 +72,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $no =1
+                            @endphp
                             @foreach ($data['penarik'] as $key => $value)
-                                <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td >{{ $value->penarik }}</td>
-                                    <td class="text-center">{{ number_format($value->jml_baku,'2',',','.') }} </td>
-                                    <td class="text-center">{{ $value->jml_sppt_baku }}</td>
-                                    <td class="text-center">{{ number_format($value->jml_setoran,'2',',','.') }} </td>
-                                    <td class="text-center">{{ $value->jml_sppt_setoran }}</td>
-                                    <td class="text-center">{{ number_format($value->selisih_jml_setoran,'2',',','.') }} </td>
-                                    <td class="text-center">{{ $value->selisih_jml_sppt }}</td>
-                                </tr>
+                                @unless($loop->first)
+                                    <tr>
+                                        <td class="text-center">{{ $no++ }}</td>
+                                        <td >{{ $value->penarik }}</td>
+                                        <td class="text-center">{{ number_format($value->jml_baku,'2',',','.') }} </td>
+                                        <td class="text-center">{{ $value->jml_sppt_baku }}</td>
+                                        <td class="text-center">{{ number_format($value->jml_setoran,'2',',','.') }} </td>
+                                        <td class="text-center">{{ $value->jml_sppt_setoran }}</td>
+                                        <td class="text-center">{{ number_format($value->selisih_jml_setoran,'2',',','.') }} </td>
+                                        <td class="text-center">{{ $value->selisih_jml_sppt }}</td>
+                                    </tr>
+                                @endunless
                             @endforeach
                         </tbody>
                     </table>
@@ -102,9 +108,9 @@
 
 @push('scripts')
 <script>
-    new simpleDatatables.DataTable("#tablerekap", {
-        searchable: false,
-        paging:false,
-    })
+   $('#t_rekap').DataTable({
+    searching: false,
+        lengthChange: false,
+   })
 </script>
 @endpush

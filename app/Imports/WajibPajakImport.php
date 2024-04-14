@@ -29,7 +29,7 @@ class WajibPajakImport implements ToModel, WithHeadingRow
                 return new WajibPajak([
                     'no_sppt' => $row['no_sppt'] ?? null,
                     'nama' => $row['nama'] ?? null,
-                    'tahun' => $row['tahun'] !== null ? date('Y', strtotime($row['tahun'])) :null,
+                    'tahun' => $row['tahun'] ?? null ,
                     'rt' => $row['rt'] ?? null,
                     'rw' => $row['rw'] ?? null,
                     'alamat_pemilik' => $row['alamat_pemilik'] ?? null,

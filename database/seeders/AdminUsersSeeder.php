@@ -33,7 +33,7 @@ class AdminUsersSeeder extends Seeder
                 'username' => 'imammahdi',
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'email_verified_at' => now(),
-                'role' => 'user',
+                'role' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -88,16 +88,16 @@ class AdminUsersSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'name' => 'SONO BUDIYANTO',
-                'email' => 'sono.budiyanto@' . $domainEmail,
-                'username' => 'sonobudiyanto',
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'email_verified_at' => now(),
-                'role' => 'user',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+            // [
+            //     'name' => 'SONO BUDIYANTO',
+            //     'email' => 'sono.budiyanto@' . $domainEmail,
+            //     'username' => 'sonobudiyanto',
+            //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            //     'email_verified_at' => now(),
+            //     'role' => 'user',
+            //     'created_at' => now(),
+            //     'updated_at' => now(),
+            // ],
             [
                 'name' => 'SOPANI',
                 'email' => 'sopani@' . $domainEmail,
