@@ -133,6 +133,7 @@
                     <tbody>
                         @if (isset($data['setoran']) && $data['setoran']->count() > 0)
                             @foreach ($data['setoran'] as $key => $value)
+                                @if (isset($value->tgl_setoran))
                                     <tr>
                                         <td scope="row" class="text-center">{{ date('d/m/Y', strtotime($value->tgl_setoran)) }}</td>
                                         <td>{{ $value->no_sppt }}</td>
@@ -143,6 +144,7 @@
                                             <span class="badge bg-success">lunas</span>
                                         </td>
                                     </tr>
+                                @endif
                             @endforeach
                         @endif
                     </tbody>

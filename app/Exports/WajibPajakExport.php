@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\WajibPajak;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -25,7 +26,8 @@ class WajibPajakExport implements FromCollection,WithHeadings
             'luas_bangunan',
             'pagu_pajak',
             'users.name as penarik',
-            'status')->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->get();
+            DB::raw('CASE WHEN status = 1 THEN "Lunas" ELSE "" END as status'))
+            ->join('master_penarik', 'wajib_pajak.no_sppt', '=', 'master_penarik.no_sppt')->join('users', 'master_penarik.id_user', '=', 'users.id')->get();
 
 
     }

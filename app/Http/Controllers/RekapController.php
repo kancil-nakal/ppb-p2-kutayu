@@ -16,14 +16,14 @@ class RekapController extends Controller
         $tahun = $request->get('tahun');
 
         $users = new User;
+        $rekap = $users->getRekapSetoran(['tahun' =>$tahun]);
         $data = [
             'title' => 'Rekap',
-            'penarik' => $users->getRekapSetoran(['tahun' =>$tahun]),
+            'penarik' => $rekap,
             'tahun' => WajibPajak::select('tahun')->groupBy('tahun')->orderBy('tahun', 'desc')->get(),
-            'value_tahun' => $tahun
+            'value_tahun' => $tahun,
         ];
 
-        // dd($data);
         return view('admin.pages.rekap.index',compact('data'));
     }
 

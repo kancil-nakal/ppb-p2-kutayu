@@ -257,7 +257,7 @@ class WajibPajakController extends Controller
 
     public function export () {
 
-        return Excel::download(new WajibPajakExport(), 'PBB-P2.xlsx');
+        return Excel::download(new WajibPajakExport(), 'Data Wajib Pajak PBB-P2.xlsx');
     }
     public function import() {
 
